@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.hirondelle.predictapp.domain.model.PredictionList;
 
-public interface IPredictionListRepository extends JpaRepository<PredictionList, Long> {
+public interface IPredictionListRepository extends JpaRepository<PredictionList, Integer> {
 	
 	@Query("SELECT p FROM PredictionList p WHERE p.user.id = :id")
 	List<PredictionList> findByUserID(@Param("id") int id);

@@ -6,4 +6,6 @@ import com.hirondelle.predictapp.domain.model.PredictionList;
 
 public interface IPredictionListService {
 	List<PredictionList> findByUserID(int id);
+	
+	PredictionList findOne(Integer id);
 }
