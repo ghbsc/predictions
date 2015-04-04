@@ -2,8 +2,8 @@
 <tags:templatepage title="Prediction Lists">
 
 <form:form action='${pageContext.request.contextPath}/prediction' 
-	class="user-input" modelAttribute='predictionList'> 
-    <input name="Id" type="hidden">
+	class="user-input" modelAttribute='predictionListForm'>
+	<form:hidden path="id" /> 
     <table align="center">
      <tr>
       <td><label>Title</label></td>
@@ -11,7 +11,7 @@
      </tr>
      <tr>
       <td align="center" colspan=2>
-       <input type='submit' value="Add/Edit">
+       <input type='submit' value="Add/Edit" name="AddEdit">
       </td>
      </tr>
     </table>
@@ -61,8 +61,6 @@
  	</c:url>
  	<a href='${editURL}' title='Prediction Lists'>edit</a>
   </td>
-  
-  <tags:editLinksFineGrained baseURL='${baseURL}' id='${item.id}'/>
  </tr>
 </c:forEach>
 </w:alternatingRow>

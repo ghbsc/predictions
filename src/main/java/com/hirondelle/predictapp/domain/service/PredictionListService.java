@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
+
 //import org.springframework.transaction.annotation.Transactional;
 import com.hirondelle.predictapp.domain.model.PredictionList;
 import com.hirondelle.predictapp.domain.repository.IPredictionListRepository;
@@ -14,6 +16,15 @@ import com.hirondelle.predictapp.domain.repository.IPredictionListRepository;
 public class PredictionListService implements IPredictionListService {
 	@Inject
 	private IPredictionListRepository predictionListRepository;
+	
+	@Override
+	public void save(PredictionList predictionList) {
+		if(predictionList.getCreationDate() == null) {
+			predictionList.setCreationDate(new DateTime().toDate());
+		}
+		
+		predictionListRepository.save(predictionList);
+	}	
 	
 	@Override
 	public List<PredictionList> findByUserID(int id) {

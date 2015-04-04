@@ -33,13 +33,24 @@ public class PredictionList {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
     
+    public void setId(Integer id) {
+    	this.id = id;
+    }
     
     public Integer getId() {
     	return id;
     }
     
+    public void setTitle(String title) {
+    	this.title = title;
+    }
+    
     public String getTitle() {
     	return title;
+    }
+    
+    public void setCreationDate(Date creationDate) {
+    	this.creationDate = creationDate;
     }
     
     public Date getCreationDate() {
