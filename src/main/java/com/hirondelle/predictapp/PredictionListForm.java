@@ -2,11 +2,18 @@ package com.hirondelle.predictapp;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.hirondelle.predictapp.domain.model.User;
 
 public class PredictionListForm {
     private Integer id;
+    
+    @NotNull
+    @Size(min = 1, max = 5)
     private String title;
+    
     private Date creationDate;
     private User user;
     

@@ -1,6 +1,7 @@
 package com.hirondelle.predictapp;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import java.util.List;
 
@@ -10,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hirondelle.predictapp.domain.model.PredictionList;
 import com.hirondelle.predictapp.domain.service.IPredictionListService;
@@ -30,9 +33,10 @@ public class PredictionListController {
 		return new PredictionListForm();
 	}
 	
+	//Model attribute default value
 	@RequestMapping("list")
 	public String List(@ModelAttribute("predictionListForm") PredictionListForm predictionListForm, Model model) {		
-		PopulatePredictionLists(model);
+		populatePredictionLists(model);
         return "lists/list";		
 	}
 	
@@ -43,18 +47,28 @@ public class PredictionListController {
     	PredictionListForm predictionListForm = beanMapper.map(predictionList, PredictionListForm.class);
     	model.addAttribute("predictionListForm", predictionListForm);
     	
-    	PopulatePredictionLists(model);
+    	populatePredictionLists(model);
         return "lists/list";
     }
     
-    @RequestMapping("update")
-    public String update(PredictionList predictionList, BindingResult result) {
-    	predictionListService.findOne(predictionList.getId());
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public String update(@Valid PredictionListForm predictionListForm, 
+    		BindingResult result, RedirectAttributes attr) {
+    	if(result.hasErrors()) {   		
+//    		populatePredictionLists(model);
+    		return "lists/list";    		
+    	}
     	
-        return "lists/list";	
+    	PredictionList predictionList = predictionListService.findOne(predictionListForm.getId());
+    	predictionList.setTitle(predictionListForm.getTitle());
+    	
+    	predictionListService.save(predictionList);
+    	
+    	attr.addFlashAttribute("confirmationMessage", "confirmed");
+        return "redirect:/prediction/list";	
     }
     
-    private void PopulatePredictionLists(Model model) {
+    private void populatePredictionLists(Model model) {
 		List<PredictionList> predictionLists = predictionListService.findByUserID(1);
 		model.addAttribute("predictionLists", predictionLists);    	
     }

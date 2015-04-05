@@ -1,13 +1,22 @@
 
 <tags:templatepage title="Prediction Lists">
 
-<form:form action='${pageContext.request.contextPath}/prediction' 
-	class="user-input" modelAttribute='predictionListForm'>
+<c:if test="${not empty confirmationMessage}">
+	<p class="display-messages">
+	   <span class="message">Your list has been changed successfully.</span><br>
+	</p>
+</c:if>
+
+<form:form action='${pageContext.request.contextPath}/prediction/update' 
+	class="user-input" modelAttribute='predictionListForm' method='post'>
 	<form:hidden path="id" /> 
     <table align="center">
      <tr>
       <td><label>Title</label></td>
-      <td><form:input path="title" type="text" /></td>
+      <td>
+      	<form:input path="title" type="text" />
+      	<form:errors path="title" />
+      </td>
      </tr>
      <tr>
       <td align="center" colspan=2>
