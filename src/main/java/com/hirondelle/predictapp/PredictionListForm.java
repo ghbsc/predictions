@@ -11,7 +11,7 @@ public class PredictionListForm {
     private Integer id;
     
     @NotNull
-    @Size(min = 1, max = 5)
+    @Size(min = 1, max = 50)
     private String title;
     
     private Date creationDate;

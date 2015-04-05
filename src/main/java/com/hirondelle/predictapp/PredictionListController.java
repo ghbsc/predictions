@@ -35,7 +35,8 @@ public class PredictionListController {
 	
 	//Model attribute default value
 	@RequestMapping("list")
-	public String List(@ModelAttribute("predictionListForm") PredictionListForm predictionListForm, Model model) {		
+	public String List(@ModelAttribute("predictionListForm") PredictionListForm predictionListForm, 
+		Model model) {		
 		populatePredictionLists(model);
         return "lists/list";		
 	}
@@ -52,10 +53,10 @@ public class PredictionListController {
     }
     
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public String update(@Valid PredictionListForm predictionListForm, 
-    		BindingResult result, RedirectAttributes attr) {
+    public String update(@Valid PredictionListForm predictionListForm, BindingResult result, 
+    	Model model, RedirectAttributes attr) {
     	if(result.hasErrors()) {   		
-//    		populatePredictionLists(model);
+    		populatePredictionLists(model);
     		return "lists/list";    		
     	}
     	
