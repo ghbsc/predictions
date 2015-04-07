@@ -2,6 +2,8 @@ package com.hirondelle.predictapp.domain.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,17 +15,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
 @Table(name = "predictionlist")
 public class PredictionList {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
+    //Be careful of JPA cascade vs Hibernate cascade
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "userfK")
+    //@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     private User user;
     
     @Column(name = "title", nullable = false)
@@ -55,5 +61,13 @@ public class PredictionList {
     
     public Date getCreationDate() {
     	return creationDate;
+    }
+    
+    public User getUser() {
+    	return user;
+    }
+    
+    public void setUser(User user) {
+    	this.user = user;
     }
 }

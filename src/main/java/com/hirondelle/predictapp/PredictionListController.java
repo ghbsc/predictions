@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hirondelle.predictapp.domain.model.PredictionList;
+import com.hirondelle.predictapp.domain.model.User;
 import com.hirondelle.predictapp.domain.service.IPredictionListService;
 
 @Controller
@@ -52,6 +53,7 @@ public class PredictionListController {
         return "lists/list";
     }
     
+    //The binding result should follow the object being validated
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public String update(@Valid PredictionListForm predictionListForm, BindingResult result, 
     	Model model, RedirectAttributes attr) {
@@ -60,9 +62,19 @@ public class PredictionListController {
     		return "lists/list";    		
     	}
     	
-    	PredictionList predictionList = predictionListService.findOne(predictionListForm.getId());
-    	predictionList.setTitle(predictionListForm.getTitle());
+    	PredictionList predictionList;
+    	if(predictionListForm.getId() == null) {
+    		predictionList = new PredictionList();
+    		
+    		User user = new User();
+    		user.setId(1);
+    		predictionList.setUser(user);
+    	}
+    	else {
+        	predictionList = predictionListService.findOne(predictionListForm.getId());    		
+    	}
     	
+    	predictionList.setTitle(predictionListForm.getTitle());    	
     	predictionListService.save(predictionList);
     	
     	attr.addFlashAttribute("confirmationMessage", "confirmed");

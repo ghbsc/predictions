@@ -25,5 +25,13 @@ public class User {
     private String password;
     
     @Column(name = "email", unique = true, nullable = false, length = 64)
-    private String email;    
+    private String email;  
+    
+    public Integer getId() {
+    	return id;
+    }
+    
+    public void setId(Integer id) {
+    	this.id = id;
+    }
 }
