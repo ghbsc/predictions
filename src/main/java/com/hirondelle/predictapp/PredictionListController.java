@@ -37,7 +37,7 @@ public class PredictionListController {
 	//Model attribute default value
 	@RequestMapping("list")
 	public String List(@ModelAttribute("predictionListForm") PredictionListForm predictionListForm, 
-		Model model) {		
+			Model model) {		
 		populatePredictionLists(model);
         return "lists/list";		
 	}
@@ -56,7 +56,7 @@ public class PredictionListController {
     //The binding result should follow the object being validated
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public String update(@Valid PredictionListForm predictionListForm, BindingResult result, 
-    	Model model, RedirectAttributes attr) {
+    		Model model, RedirectAttributes attr) {
     	if(result.hasErrors()) {   		
     		populatePredictionLists(model);
     		return "lists/list";    		
@@ -77,8 +77,18 @@ public class PredictionListController {
     	predictionList.setTitle(predictionListForm.getTitle());    	
     	predictionListService.save(predictionList);
     	
-    	attr.addFlashAttribute("confirmationMessage", "confirmed");
+    	attr.addFlashAttribute("confirmationMessage", "Your list has been changed successfully.");
         return "redirect:/prediction/list";	
+    }
+    
+    @RequestMapping("delete")
+    public String delete(@RequestParam("id") Integer id, Model model, 
+    		RedirectAttributes attr) {
+    	PredictionList predictionList = predictionListService.findOne(id);
+    	predictionListService.delete(predictionList);
+    	
+    	attr.addFlashAttribute("confirmationMessage", "Your list has been deleted.");	
+        return "redirect:/prediction/list";	    	
     }
     
     private void populatePredictionLists(Model model) {

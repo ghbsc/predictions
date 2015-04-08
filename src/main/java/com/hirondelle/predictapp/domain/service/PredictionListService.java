@@ -27,6 +27,11 @@ public class PredictionListService implements IPredictionListService {
 	}	
 	
 	@Override
+	public void delete(PredictionList predictionList) {
+		predictionListRepository.delete(predictionList);
+	}	
+	
+	@Override
 	public List<PredictionList> findByUserID(int id) {
 		return predictionListRepository.findByUserID(id);
 	}

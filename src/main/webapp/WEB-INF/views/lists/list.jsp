@@ -3,7 +3,7 @@
 
 <c:if test="${not empty confirmationMessage}">
 	<p class="display-messages">
-	   <span class="message">Your list has been changed successfully.</span><br>
+	   <span class="message">${confirmationMessage}</span><br>
 	</p>
 </c:if>
 
@@ -70,6 +70,12 @@
  	</c:url>
  	<a href='${editURL}' title='Prediction Lists'>edit</a>
   </td>
+   <td>
+ 	<c:url value='/prediction/delete' var='deleteURL'>
+ 		<c:param name='id' value='${item.id}' />
+ 	</c:url>
+ 	<a href='${deleteURL}' title='Prediction Lists'>delete</a>
+  </td> 
  </tr>
 </c:forEach>
 </w:alternatingRow>
