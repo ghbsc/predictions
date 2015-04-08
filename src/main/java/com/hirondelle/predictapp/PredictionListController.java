@@ -20,7 +20,7 @@ import com.hirondelle.predictapp.domain.model.User;
 import com.hirondelle.predictapp.domain.service.IPredictionListService;
 
 @Controller
-@RequestMapping("prediction")
+@RequestMapping("predictionlist")
 public class PredictionListController {
 
 	@Inject
