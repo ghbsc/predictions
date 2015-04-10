@@ -1,29 +1,15 @@
-package com.hirondelle.predictapp.domain.model;
+package com.hirondelle.predictapp;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import com.hirondelle.predictapp.domain.model.Outcome;
+import com.hirondelle.predictapp.domain.model.PredictionList;
 
-public class Prediction {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
+public class PredictionForm {
     private Integer id;
     
-	@ManyToOne(targetEntity = PredictionList.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "PredictionListFK")
     private PredictionList predictionList;
     
-	@OneToOne(targetEntity = Outcome.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "OutcomeFK")
     private Outcome outcome;
     
     private String text;
@@ -57,7 +43,7 @@ public class Prediction {
 	public void setText(String text) {
 		this.text = text;
 	}
-
+	
 	public Outcome getOutcome() {
 		return outcome;
 	}
@@ -88,5 +74,5 @@ public class Prediction {
 
 	public void setOutcomeDate(Date outcomeDate) {
 		this.outcomeDate = outcomeDate;
-	}    
+	} 
 }
