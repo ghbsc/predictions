@@ -7,7 +7,7 @@
 	</p>
 </c:if>
 
-<form:form action='${pageContext.request.contextPath}/prediction/update' 
+<form:form action='${pageContext.request.contextPath}/predictionlist/update' 
 	class="user-input" modelAttribute='predictionListForm' method='post'>
 	<form:hidden path="id" /> 
     <table align="center">
@@ -65,13 +65,13 @@
     <A HREF='${jsonURL}' title='Public link to your list as JSON data'>link</A>
   </td>   
   <td>
- 	<c:url value='/prediction/edit' var='editURL'>
+ 	<c:url value='/predictionlist/edit' var='editURL'>
  		<c:param name='id' value='${item.id}' />
  	</c:url>
  	<a href='${editURL}' title='Prediction Lists'>edit</a>
   </td>
    <td>
- 	<c:url value='/prediction/delete' var='deleteURL'>
+ 	<c:url value='/predictionlist/delete' var='deleteURL'>
  		<c:param name='id' value='${item.id}' />
  	</c:url>
  	<a href='${deleteURL}' title='Prediction Lists'>delete</a>
