@@ -2,7 +2,12 @@ package com.hirondelle.predictapp.domain.model;
 
 import java.util.Date;
 
+
+
+
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +15,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+@Entity
+@Table(name = "Prediction")
 public class Prediction {
 
 	@Id
@@ -19,19 +29,25 @@ public class Prediction {
     private Integer id;
     
 	@ManyToOne(targetEntity = PredictionList.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "PredictionListFK")
+	@JoinColumn(name = "predictionlistfk")
     private PredictionList predictionList;
     
 	@OneToOne(targetEntity = Outcome.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "OutcomeFK")
+	@JoinColumn(name = "outcomefk")
     private Outcome outcome;
     
+    @Column(name = "text", nullable = false)
     private String text;
     
+    @Column(name = "creationdate", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
     
+    @Column(name = "remark")
     private String remark;    
     
+    @Column(name = "outcomedate")
+    @Temporal(TemporalType.DATE)
     private Date outcomeDate;
 
 	public Integer getId() {

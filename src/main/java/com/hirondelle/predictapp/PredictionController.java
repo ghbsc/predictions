@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hirondelle.predictapp.domain.model.Outcome;
 import com.hirondelle.predictapp.domain.model.Prediction;
+import com.hirondelle.predictapp.domain.service.IOutcomeService;
 import com.hirondelle.predictapp.domain.service.IPredictionService;
 
 @Controller
@@ -19,6 +21,9 @@ public class PredictionController {
 	@Inject
 	protected IPredictionService predictionService;
 	
+	@Inject
+	protected IOutcomeService outcomeService;
+	
 	@ModelAttribute("predictionForm")
 	public PredictionForm setupPredictionForm() {
 		return new PredictionForm();
@@ -26,14 +31,22 @@ public class PredictionController {
 	
 	//Model attribute default value
 	@RequestMapping("list")
-	public String List(@RequestParam("id") Integer id, @ModelAttribute("predictionForm") PredictionForm predictionForm, 
-			Model model) {		
-		populatePredictions(id, model);
+	public String List(@RequestParam("parentId") Integer parentId, @ModelAttribute("predictionForm") PredictionForm predictionForm, 
+			Model model) {
+		
+		initModelList(model);
+		populatePredictions(parentId, model);
+		
         return "prediction/list";		
 	}
 	
-    private void populatePredictions(Integer id, Model model) {
-		List<Prediction> predictions = predictionService.findByPredictionListID(id);
+    private void populatePredictions(Integer parentId, Model model) {
+		List<Prediction> predictions = predictionService.findByPredictionListID(parentId);
 		model.addAttribute("predictions", predictions);    	
-    }	
+    }
+    
+    private void initModelList(Model model) {
+    	List<Outcome> outcomes = outcomeService.findAll();
+    	model.addAttribute("outcomes", outcomes);
+    }
 }

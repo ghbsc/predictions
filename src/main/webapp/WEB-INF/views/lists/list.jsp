@@ -47,8 +47,8 @@
 	${item.creationDate}
    </td>
   <td>
-    <c:url value="/main/prediction/PredictionAction.list" var="predictionsURL"> 
-      <c:param name='ParentId' value='${item.id}' />
+    <c:url value="/prediction/list" var="predictionsURL"> 
+      <c:param name='parentId' value='${item.id}' />
     </c:url>
     <A HREF='${predictionsURL}' title='Edit the predictions in the list'>details</A>
   </td>   
