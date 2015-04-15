@@ -5,8 +5,6 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.hirondelle.predictapp.domain.model.User;
-
 public class PredictionListForm {
     private Integer id;
     

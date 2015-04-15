@@ -74,11 +74,11 @@ public class PredictionListController {
         	predictionList = predictionListService.findOne(predictionListForm.getId());    		
     	}
     	
-    	predictionList.setTitle(predictionListForm.getTitle());    	
+    	beanMapper.map(predictionListForm, predictionList);
     	predictionListService.save(predictionList);
     	
     	attr.addFlashAttribute("confirmationMessage", "Your list has been changed successfully.");
-        return "redirect:/prediction/list";	
+        return "redirect:/predictionlist/list";	
     }
     
     @RequestMapping("delete")
@@ -88,7 +88,7 @@ public class PredictionListController {
     	predictionListService.delete(predictionList);
     	
     	attr.addFlashAttribute("confirmationMessage", "Your list has been deleted.");	
-        return "redirect:/prediction/list";	    	
+        return "redirect:/predictionlist/list";	    	
     }
     
     private void populatePredictionLists(Model model) {

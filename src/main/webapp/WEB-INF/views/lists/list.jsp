@@ -39,7 +39,7 @@
   <th><a href='http://www.json.org/' title='JSON data interchange format'>JSON</a></th>
  </tr>
 <w:alternatingRow>
-<c:forEach var="item" items="${predictionLists}">
+<c:forEach var="item" items="${predictionLists}" varStatus="index">
  <tr class="row_highlight">
   <td title="Line Number">${index.count}</td>
   <td>${item.title}</td>
