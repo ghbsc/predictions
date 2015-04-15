@@ -7,10 +7,6 @@
   <mapping> 
     <class-a>com.hirondelle.predictapp.domain.model.PredictionList</class-a>
     <class-b>com.hirondelle.predictapp.PredictionListForm</class-b>
-    <field-exclude>
-        <a>user</a>
-        <b>user</b>
-     </field-exclude>
   </mapping>  
 
 </mappings> 

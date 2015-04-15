@@ -15,7 +15,6 @@ public class PredictionListForm {
     private String title;
     
     private Date creationDate;
-    private User user;
     
     public void setId(Integer id) {
     	this.id = id;
@@ -40,12 +39,4 @@ public class PredictionListForm {
     public Date getCreationDate() {
     	return creationDate;
     }
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 }
