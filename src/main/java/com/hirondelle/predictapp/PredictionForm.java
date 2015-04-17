@@ -20,6 +20,8 @@ public class PredictionForm {
     
     private Date outcomeDate;
 
+    private Integer parentId;
+    
 	public Integer getId() {
 		return id;
 	}
@@ -74,5 +76,13 @@ public class PredictionForm {
 
 	public void setOutcomeDate(Date outcomeDate) {
 		this.outcomeDate = outcomeDate;
+	}
+
+	public Integer getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	} 
 }

@@ -1,9 +1,11 @@
 <tags:templatepage title="Prediction">
+	<tags:confirmationMessages message="${confirmationMessage}" />
 
 	<form:form action='${pageContext.request.contextPath}/prediction/update' method="post" 
 		class="user-input" modelAttribute='predictionForm'> 
 	  <w:populate using="itemForEdit"> 
-		<form:hidden path="id" /> 
+		<form:hidden path='id' />
+		<form:hidden path='parentId' /> 
 	   	<!--<input name="ParentId" type="hidden"> -->
 	   
 	   <table align="center">
@@ -21,6 +23,7 @@
 	       <td><label>Outcome</label></td>
 	       <td>
        		<form:select path='outcome'>
+       			<form:option value='' label='' />
        			<form:options items='${outcomes}' itemValue='id' itemLabel='text'/>
        		</form:select>
 	        </td>

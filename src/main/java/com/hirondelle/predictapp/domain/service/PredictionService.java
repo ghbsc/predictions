@@ -19,4 +19,14 @@ public class PredictionService implements IPredictionService {
 		return predictionRepository.findByPredictionListID(id);
 	}
 
+	@Override
+	public void save(Prediction prediction) {
+		predictionRepository.save(prediction);
+	}
+
+	@Override
+	public Prediction findOne(Integer id) {
+		return predictionRepository.findOne(id);
+	}
+
 }
