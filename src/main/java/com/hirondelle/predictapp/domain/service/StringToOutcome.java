@@ -13,7 +13,7 @@ public class StringToOutcome implements Converter<String, Outcome> {
 	
 	@Override
 	public Outcome convert(String text) {
-		return outcomeRepository.findByText(text);
+		return outcomeRepository.findOne(Integer.parseInt(text));
 	}
 
 }

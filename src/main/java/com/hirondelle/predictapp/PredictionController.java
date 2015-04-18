@@ -6,13 +6,9 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.dozer.Mapper;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,11 +35,7 @@ public class PredictionController {
 	@Inject
 	protected Mapper beanMapper;	
 	
-//	@ModelAttribute("predictionForm")
-//	public PredictionForm setupPredictionForm() {
-//		return new PredictionForm();
-//	}
-	
+//	  <annotation-driven conversion-service replaces this	
 //    @InitBinder
 //    private void initBinder(WebDataBinder binder) {
 //        binder.setConversionService(conversionService);
@@ -68,42 +60,53 @@ public class PredictionController {
 			return "prediction/list";    		
 		}
 		
-    	Prediction prediction;
-    	if(predictionForm.getId() == null) {
-    		prediction = new Prediction();
-    		
-    		PredictionList predictionList = new PredictionList();
-    		predictionList.setId(predictionForm.getParentId());
-    		prediction.setPredictionList(predictionList);
-    		
-    		Outcome outcome = new Outcome();
-    		outcome.setId(predictionForm.getOutcome().getId());
-    		prediction.setOutcome(outcome);
-    	}
-    	else {
-        	prediction = predictionService.findOne(predictionForm.getId());    		
-    	}		
-
+    	Prediction prediction = getPrediction(predictionForm);
+		
     	beanMapper.map(predictionForm, prediction);
     	predictionService.save(prediction);
     	
     	attr.addFlashAttribute("confirmationMessage", "Your list has been changed successfully.");
-        return "redirect:/prediction/list";	
+        return String.format("redirect:/prediction/list?parentId=%s", predictionForm.getParentId());	
    }
-	
-    private void populatePredictions(Integer parentId, Model model) {
+
+	private Prediction getPrediction(PredictionForm predictionForm) {
+		Prediction prediction;
+		
+		if(predictionForm.getId() == null) {
+			prediction = new Prediction();
+			
+			PredictionList predictionList = new PredictionList();
+			predictionList.setId(predictionForm.getParentId());
+			prediction.setPredictionList(predictionList);
+			
+			if(predictionForm.getOutcome() != null) {
+		   		Outcome outcome = new Outcome();
+		   		outcome.setId(predictionForm.getOutcome().getId());
+		   		prediction.setOutcome(outcome);    			
+			}
+		}
+		else {
+		   	prediction = predictionService.findOne(predictionForm.getId());    		
+		}
+		
+		return prediction;
+	}
+   
+   private void populatePredictions(Integer parentId, Model model) {
 		List<Prediction> predictions = predictionService.findByPredictionListID(parentId);
 		model.addAttribute("predictions", predictions);    	
-    }
-    
-    private void initPredictionForm(Integer parentId, Model model) {
+   }
+   
+   //Cannot @ModelAttribute("predictionForm") because of the need
+   //to pass parentId
+   private void initPredictionForm(Integer parentId, Model model) {
     	PredictionForm predictionForm = new PredictionForm();
     	predictionForm.setParentId(parentId);
     	model.addAttribute("predictionForm", predictionForm);
-    }
+   }
     
-    private void initModelList(Model model) {
+   private void initModelList(Model model) {
     	List<Outcome> outcomes = outcomeService.findAll();
     	model.addAttribute("outcomes", outcomes);
-    }
+   }
 }
