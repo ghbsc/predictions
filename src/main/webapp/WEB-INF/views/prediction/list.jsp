@@ -1,4 +1,3 @@
-<%@ page import ='java.text.SimpleDateFormat' %>
 <tags:templatepage title="Prediction">
 	<tags:confirmationMessages message="${confirmationMessage}" />
 
@@ -66,6 +65,19 @@
 	  					pattern='MM-dd-yyyy' />
 	  	${outcomeFormattedDate}
 	  </td>
+	  <td>
+	 	<c:url value='/prediction/edit' var='editURL'>
+	 		<c:param name='id' value='${item.id}' />
+	 	</c:url>
+	 	<a href='${editURL}' title='Prediction'>edit</a>
+	  </td>	  
+	  <td>
+	 	<c:url value='/prediction/delete' var='deleteURL'>
+	 		<c:param name='id' value='${item.id}' />
+	 		<c:param name='parentId' value='${item.predictionList.id}' />	 		
+	 	</c:url>
+	 	<a href='${deleteURL}' title='Prediction'>delete</a>
+	  </td> 	  
 	 </tr>
 	</c:forEach>
 	</w:alternatingRow>

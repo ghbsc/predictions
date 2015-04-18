@@ -49,7 +49,7 @@ public class PredictionController {
 		initPredictionForm(parentId, model);
 		populatePredictions(parentId, model);
 		
-        return "prediction/list";		
+		return "prediction/list";		
 	}
 	
    @RequestMapping(value = "update", method = RequestMethod.POST)
@@ -57,7 +57,7 @@ public class PredictionController {
     		Model model, RedirectAttributes attr) {
 		if(result.hasErrors()) {   		
 			populatePredictions(predictionForm.getParentId(), model);
-			return "prediction/list";    		
+			return forward(predictionForm.getParentId());    		
 		}
 		
     	Prediction prediction = getPrediction(predictionForm);
@@ -66,10 +66,22 @@ public class PredictionController {
     	predictionService.save(prediction);
     	
     	attr.addFlashAttribute("confirmationMessage", "Prediction has been changed successfully.");
-        return String.format("redirect:/prediction/list?parentId=%s", predictionForm.getParentId());	
+    	return redirect(predictionForm.getParentId());	
    }
 
-	private Prediction getPrediction(PredictionForm predictionForm) {
+   @RequestMapping("delete")
+   public String delete(@RequestParam("id") Integer id, 
+		@RequestParam("parentId") Integer parentId, Model model, 
+		RedirectAttributes attr) {
+	   
+	   	Prediction prediction = predictionService.findOne(id);
+	   	predictionService.delete(prediction);
+	   	
+	   	attr.addFlashAttribute("confirmationMessage", "Your prediction has been deleted.");	
+	   	return redirect(parentId);   	
+   }   
+   
+   private Prediction getPrediction(PredictionForm predictionForm) {
 		Prediction prediction;
 		
 		if(predictionForm.getId() == null) {
@@ -90,7 +102,7 @@ public class PredictionController {
 		}
 		
 		return prediction;
-	}
+   }
    
    private void populatePredictions(Integer parentId, Model model) {
 		List<Prediction> predictions = predictionService.findByPredictionListID(parentId);
@@ -109,4 +121,12 @@ public class PredictionController {
     	List<Outcome> outcomes = outcomeService.findAll();
     	model.addAttribute("outcomes", outcomes);
    }
+   
+   private String redirect(Integer parentId) {
+	   return String.format("redirect:/prediction/list?parentId=%s", parentId);
+   }
+   
+   private String forward(Integer parentId) {
+	   return String.format("prediction/list?parentId=%s", parentId);
+   }  
 }

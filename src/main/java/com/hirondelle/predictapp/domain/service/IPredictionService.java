@@ -7,6 +7,8 @@ import com.hirondelle.predictapp.domain.model.Prediction;
 public interface IPredictionService {
 	void save(Prediction prediction);	
 	
+	void delete(Prediction prediction);	
+	
 	List<Prediction> findByPredictionListID(int id);
 	
 	Prediction findOne(Integer id);	

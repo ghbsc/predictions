@@ -33,6 +33,11 @@ public class PredictionService implements IPredictionService {
 	}
 
 	@Override
+	public void delete(Prediction prediction) {
+		predictionRepository.delete(prediction);
+	}
+	
+	@Override
 	public Prediction findOne(Integer id) {
 		return predictionRepository.findOne(id);
 	}
