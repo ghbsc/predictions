@@ -44,7 +44,9 @@
   <td title="Line Number">${index.count}</td>
   <td>${item.title}</td>
   <td>
-	${item.creationDate}
+  	<fmt:formatDate value='${item.creationDate}' var='creationFormattedDate' type='date' 
+  					pattern='MM-dd-yyyy' />
+  	${creationFormattedDate}
    </td>
   <td>
     <c:url value="/prediction/list" var="predictionsURL"> 

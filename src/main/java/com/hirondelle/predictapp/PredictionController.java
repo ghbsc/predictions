@@ -65,7 +65,7 @@ public class PredictionController {
     	beanMapper.map(predictionForm, prediction);
     	predictionService.save(prediction);
     	
-    	attr.addFlashAttribute("confirmationMessage", "Your list has been changed successfully.");
+    	attr.addFlashAttribute("confirmationMessage", "Prediction has been changed successfully.");
         return String.format("redirect:/prediction/list?parentId=%s", predictionForm.getParentId());	
    }
 
