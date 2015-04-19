@@ -62,17 +62,7 @@ public class PredictionListController {
     		return "lists/list";    		
     	}
     	
-    	PredictionList predictionList;
-    	if(predictionListForm.getId() == null) {
-    		predictionList = new PredictionList();
-    		
-    		User user = new User();
-    		user.setId(1);
-    		predictionList.setUser(user);
-    	}
-    	else {
-        	predictionList = predictionListService.findOne(predictionListForm.getId());    		
-    	}
+    	PredictionList predictionList = getPredictionList(predictionListForm);
     	
     	beanMapper.map(predictionListForm, predictionList);
     	predictionListService.save(predictionList);
@@ -90,6 +80,23 @@ public class PredictionListController {
     	attr.addFlashAttribute("confirmationMessage", "Your list has been deleted.");	
         return "redirect:/predictionlist/list";	    	
     }
+    
+    private PredictionList getPredictionList(PredictionListForm predictionListForm) {
+ 		PredictionList predictionList;
+ 		
+    	if(predictionListForm.getId() == null) {
+    		predictionList = new PredictionList();
+    		
+    		User user = new User();
+    		user.setId(1);
+    		predictionList.setUser(user);
+    	}
+    	else {
+        	predictionList = predictionListService.findOne(predictionListForm.getId());    		
+    	} 		
+ 		
+ 		return predictionList;
+    }    
     
     private void populatePredictionLists(Model model) {
 		List<PredictionList> predictionLists = predictionListService.findByUserID(1);
