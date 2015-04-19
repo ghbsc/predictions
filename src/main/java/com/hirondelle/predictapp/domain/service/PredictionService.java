@@ -24,11 +24,12 @@ public class PredictionService implements IPredictionService {
 	public void save(Prediction prediction) {
 		if(prediction.getCreationDate() == null) {
 			prediction.setCreationDate(new DateTime().toDate());
-			
-			if(prediction.getOutcome() != null) {
-				prediction.setOutcomeDate(new DateTime().toDate());
-			}
 		}
+		
+		if(prediction.getOutcome() != null) {
+			prediction.setOutcomeDate(new DateTime().toDate());
+		}
+		
 		predictionRepository.save(prediction);
 	}
 

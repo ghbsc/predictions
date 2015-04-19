@@ -12,16 +12,20 @@
 	       <td><label alt='Required, max 255 characters'>Prediction</label></td>
 	       <td>
 	       	<form:textarea path='text' rows='3' cols='40' alt='Max 255 characters' />
+      		<form:errors path="text" />	       	
 	       </td>
 	      </tr>
 	      <tr>
 	       <td><label>Remark</label></td>
-	       <td><form:textarea path='remark' rows='3' cols='40' /></td>
+	       <td>
+	       	<form:textarea path='remark' rows='3' cols='40' />
+      		<form:errors path="remark" />	       	
+	       	</td>
 	      </tr>
 	      <tr>
 	       <td><label>Outcome</label></td>
 	       <td>
-       		<form:select path='outcome'>
+       		<form:select path='outcome.id'>
        			<form:option value='' label='' />
        			<form:options items='${outcomes}' itemValue='id' itemLabel='text'/>
        		</form:select>
@@ -68,6 +72,7 @@
 	  <td>
 	 	<c:url value='/prediction/edit' var='editURL'>
 	 		<c:param name='id' value='${item.id}' />
+			<c:param name='parentId' value='${item.predictionList.id}' />	 		
 	 	</c:url>
 	 	<a href='${editURL}' title='Prediction'>edit</a>
 	  </td>	  

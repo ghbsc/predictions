@@ -51,13 +51,30 @@ public class PredictionController {
 		
 		return "prediction/list";		
 	}
+
+	//@RequestParam appends to then end of URL in the end
+	@RequestMapping("edit")
+	public String Edit(@RequestParam("id") Integer id, 
+		@RequestParam("parentId") Integer parentId, Model model) {
+		
+		Prediction prediction = predictionService.findOne(id);
+		
+		PredictionForm predictionForm = beanMapper.map(prediction, PredictionForm.class);
+		model.addAttribute("predictionForm", predictionForm);
+		
+		initModelList(model);		
+		populatePredictions(parentId, model);
+	    
+		return "prediction/list";
+	}	
 	
    @RequestMapping(value = "update", method = RequestMethod.POST)
    public String update(@Valid PredictionForm predictionForm, BindingResult result, 
-    		Model model, RedirectAttributes attr) {
-		if(result.hasErrors()) {   		
+    	Model model, RedirectAttributes attr) {
+		
+	   if(result.hasErrors()) {   		
 			populatePredictions(predictionForm.getParentId(), model);
-			return forward(predictionForm.getParentId());    		
+			return "prediction/list";    		
 		}
 		
     	Prediction prediction = getPrediction(predictionForm);
@@ -124,9 +141,5 @@ public class PredictionController {
    
    private String redirect(Integer parentId) {
 	   return String.format("redirect:/prediction/list?parentId=%s", parentId);
-   }
-   
-   private String forward(Integer parentId) {
-	   return String.format("prediction/list?parentId=%s", parentId);
    }  
 }
