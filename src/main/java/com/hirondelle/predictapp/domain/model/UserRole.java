@@ -8,14 +8,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "UserRole")
+@Table(name = "userrole")
 public class UserRole {
 
 	@EmbeddedId	
 	private LoginNameRole loginNameRole;
 	
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "loginName")
+    @JoinColumn(name = "loginname", referencedColumnName="loginname", insertable=false, updatable=false)
     private User user;
 
 	public LoginNameRole getLoginNameRole() {
