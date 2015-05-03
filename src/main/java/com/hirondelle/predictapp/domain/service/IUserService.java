@@ -6,6 +6,4 @@ import com.hirondelle.predictapp.domain.model.*;
 
 public interface IUserService {
 	List<User> findAll();
-	
-	User findByLoginName(String loginName);
 }

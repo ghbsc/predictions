@@ -12,7 +12,7 @@
 <h2>Log In To Your Account</h2>
 
 <div class="body">
- <form method="POST" action='/login' class="user-input" name='giveMeFocus'>
+ <form method="POST" action="<c:url value='/j_spring_security_check' />" class="user-input" name='giveMeFocus'>
 	<c:if test="${param.error != null}">
 	    <div class="alert alert-error">
 	        Invalid username and password.
@@ -26,7 +26,7 @@
 	 <table align="center">
 		 <tr>
 		  <td><label>Name</label></td>
-		  <td><input type="text" name="loginname" id="loginname" size='30'></td>
+		  <td><input type="text" name="username" id="username" size='30'></td>
 		 </tr>
 		 <tr>
 		  <td><label>Password (or phrase)</label></td>
@@ -36,7 +36,7 @@
 		 <tr align="center">
 		 	<td colspan="2"><input type="submit" value="Login"></td>
 		 </tr>
-	 </table>
+	 </table> 
  </form>	
 </div>
 

@@ -34,8 +34,9 @@ public class PredictionListController {
 		return new PredictionListForm();
 	}
 	
-	//Model attribute default value
-	@RequestMapping("list")
+	//Model attribute default value 
+	//Wild card e.g. "/welcome**"
+	@RequestMapping(value = { "/", "list" })
 	public String List(@ModelAttribute("predictionListForm") PredictionListForm predictionListForm, 
 			Model model) {		
 		populatePredictionLists(model);
