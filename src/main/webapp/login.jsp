@@ -1,13 +1,4 @@
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-
-<%-- Login Page. Configured in web.xml. --%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
-<html>
-<tags:headsimple title='Home'/>
- 	
-<body onload='showFocus()'>
-
-<tags:headerAndMenu/> 
+<tags:templatepage title="Prediction">
 
 <h2>Log In To Your Account</h2>
 
@@ -40,6 +31,4 @@
  </form>	
 </div>
 
-<P>
-</body>
-</html>
+</tags:templatepage>

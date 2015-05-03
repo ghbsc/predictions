@@ -11,10 +11,11 @@
     <sec:http auto-config="true" use-expressions="true">  
         <sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />    
         <sec:form-login 
-        	login-page="/login.jsp"
+        	login-page="/login"
         	default-target-url="/predictionlist/list"
         	username-parameter="username"
-        	password-parameter="password" />	
+        	password-parameter="password" />
+		<sec:logout logout-success-url="/login?logout" />        		
     </sec:http>
 
     <sec:authentication-manager>
