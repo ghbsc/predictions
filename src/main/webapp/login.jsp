@@ -1,6 +1,4 @@
-<tags:templatepage title="Prediction">
-
-<h2>Log In To Your Account</h2>
+<tags:templatepage title="Log In To Your Account">
 
 <div class="body">
  <form method="POST" action="<c:url value='/j_spring_security_check' />" class="user-input" name='giveMeFocus'>

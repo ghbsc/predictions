@@ -7,11 +7,12 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<sec:http pattern="/login.jsp*" security="none"/>
-	
+	<sec:http pattern="/" security="none"/>
+		
     <sec:http auto-config="true" use-expressions="true">  
         <sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />    
         <sec:form-login 
-        	login-page="/login"
+        	login-page="/login.jsp"
         	default-target-url="/predictionlist/list"
         	username-parameter="username"
         	password-parameter="password" />
