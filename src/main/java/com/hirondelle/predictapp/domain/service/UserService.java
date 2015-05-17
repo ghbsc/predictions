@@ -22,8 +22,12 @@ import com.hirondelle.predictapp.domain.repository.IUserRepository;
 
 @Service
 public class UserService implements IUserService {
-	@Inject
 	private IUserRepository userRepository;
+	
+	@Inject	
+	public UserService(IUserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 	
 	@Override
 	//@Transactional(readOnly = true)	

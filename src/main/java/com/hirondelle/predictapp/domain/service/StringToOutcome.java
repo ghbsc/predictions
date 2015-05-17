@@ -8,8 +8,12 @@ import com.hirondelle.predictapp.domain.model.Outcome;
 import com.hirondelle.predictapp.domain.repository.IOutcomeRepository;
 
 public class StringToOutcome implements Converter<String, Outcome> {
-	@Inject
 	protected IOutcomeRepository outcomeRepository;
+
+	@Inject	
+	public StringToOutcome(IOutcomeRepository outcomeRepository) {
+		this.outcomeRepository = outcomeRepository;
+	}
 	
 	@Override
 	public Outcome convert(String text) {

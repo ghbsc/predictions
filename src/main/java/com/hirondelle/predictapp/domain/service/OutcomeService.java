@@ -11,8 +11,12 @@ import com.hirondelle.predictapp.domain.repository.IOutcomeRepository;
 
 @Service
 public class OutcomeService implements IOutcomeService {
-	@Inject
 	private IOutcomeRepository outcomeRepository;
+
+	@Inject	
+	public OutcomeService(IOutcomeRepository outcomeRepository) {
+		this.outcomeRepository = outcomeRepository;
+	}
 	
 	@Override
 	public List<Outcome> findAll() {

@@ -14,8 +14,12 @@ import com.hirondelle.predictapp.domain.repository.IPredictionListRepository;
 @Service
 //@Transactional
 public class PredictionListService implements IPredictionListService {
-	@Inject
 	private IPredictionListRepository predictionListRepository;
+	
+	@Inject	
+	public PredictionListService(IPredictionListRepository predictionListRepository) {
+		this.predictionListRepository = predictionListRepository;
+	}
 	
 	@Override
 	public void save(PredictionList predictionList) {

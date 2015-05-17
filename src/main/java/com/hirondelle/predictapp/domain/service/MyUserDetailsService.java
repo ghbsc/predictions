@@ -21,8 +21,12 @@ import com.hirondelle.predictapp.domain.repository.IUserRepository;
 
 @Service("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService  {
-	@Inject
 	private IUserRepository userRepository;
+	
+	@Inject	
+	public MyUserDetailsService(IUserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 	
 	public User findByLoginName(String loginName) {
 		List<User> users = userRepository.findByLoginName(loginName);

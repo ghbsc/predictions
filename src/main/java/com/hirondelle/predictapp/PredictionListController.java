@@ -22,12 +22,16 @@ import com.hirondelle.predictapp.domain.service.IPredictionListService;
 @Controller
 @RequestMapping("predictionlist")
 public class PredictionListController {
-
-	@Inject
 	protected IPredictionListService predictionListService;
 	
-	@Inject
 	protected Mapper beanMapper;
+	
+	@Inject	
+	public PredictionListController(IPredictionListService predictionListService, 
+									Mapper beanMapper) {
+		this.predictionListService = predictionListService;
+		this.beanMapper = beanMapper;
+	}
 	
 	@ModelAttribute("predictionListForm")
 	public PredictionListForm setupPredictionListForm() {

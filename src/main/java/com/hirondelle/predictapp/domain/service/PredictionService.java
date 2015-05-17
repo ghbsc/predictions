@@ -12,8 +12,12 @@ import com.hirondelle.predictapp.domain.repository.IPredictionRepository;
 
 @Service
 public class PredictionService implements IPredictionService {
-	@Inject
 	private IPredictionRepository predictionRepository;
+	
+	@Inject	
+	public PredictionService(IPredictionRepository predictionRepository) {
+		this.predictionRepository = predictionRepository;
+	}
 	
 	@Override
 	public List<Prediction> findByPredictionListID(int id) {

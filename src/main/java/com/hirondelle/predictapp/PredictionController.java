@@ -23,18 +23,21 @@ import com.hirondelle.predictapp.domain.service.IPredictionService;
 @Controller
 @RequestMapping("prediction")
 public class PredictionController {
-	@Inject
 	protected IPredictionService predictionService;
 	
-	@Inject
 	protected IOutcomeService outcomeService;
 	
-//	@Inject
 //	protected ConversionService conversionService;
 
-	@Inject
 	protected Mapper beanMapper;	
 	
+	@Inject	
+	public PredictionController(IPredictionService predictionService, 
+								IOutcomeService outcomeService, Mapper beanMapper) {
+		this.predictionService = predictionService;
+		this.outcomeService = outcomeService;
+		this.beanMapper = beanMapper;
+	}
 //	  <annotation-driven conversion-service replaces this	
 //    @InitBinder
 //    private void initBinder(WebDataBinder binder) {
