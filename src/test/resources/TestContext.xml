@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="classpath:META-INF/applicationContext.xml" />
+    <import resource="classpath:META-INF/spring-web.xml" />
+
+    <bean id="predictionListService" name="predictionListService" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="com.hirondelle.predictapp.domain.service.IPredictionListService"/>
+        <constructor-arg value="org.dozer.Mapper"/>  		
+    </bean>
+</beans>

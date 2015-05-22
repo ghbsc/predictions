@@ -253,6 +253,18 @@
             <artifactId>jackson-mapper-asl</artifactId>
             <version>${org.codehaus.jackson.version}</version>
         </dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>${com.fasterxml.jackson.core.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>${com.fasterxml.jackson.core.version}</version>
+		    <scope>test</scope>
+		</dependency>        
         <!-- == End Jackson == -->
 
 
@@ -645,6 +657,12 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+			<exclusions>
+		        <exclusion>
+		            <artifactId>hamcrest-core</artifactId>
+		            <groupId>org.hamcrest</groupId>
+		        </exclusion>
+		    </exclusions>            
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
@@ -652,6 +670,12 @@
             <version>${org.mockito.version}</version>
             <scope>test</scope>
         </dependency>
+		<dependency>
+		    <groupId>org.hamcrest</groupId>
+		    <artifactId>hamcrest-all</artifactId>
+		    <version>${org.hamcrest.version}</version>
+		    <scope>test</scope>
+		</dependency>        
         <!-- <dependency> -->
         <!-- <groupId>org.seleniumhq.selenium</groupId> -->
         <!-- <artifactId>selenium-java</artifactId> -->
@@ -728,6 +752,7 @@
         <org.aspectj-version>1.7.3</org.aspectj-version>
         <!-- == Jackson == -->
         <org.codehaus.jackson.version>1.9.7</org.codehaus.jackson.version>
+        <com.fasterxml.jackson.core.version>2.2.1</com.fasterxml.jackson.core.version>
         <!-- == JPA == -->
         <org.hibernate.javax.persistence.version>1.0.1.Final</org.hibernate.javax.persistence.version>
         <org.hibernate.version>4.2.4.Final</org.hibernate.version>
@@ -758,6 +783,7 @@
         <junit.version>4.7</junit.version>
         <org.mockito.version>1.9.0</org.mockito.version>
         <selenium.version>2.32.0</selenium.version>
+        <org.hamcrest.version>1.3</org.hamcrest.version>
         <!-- == Maven Plugins == -->
         <maven-eclipse-plugin.version>2.6</maven-eclipse-plugin.version>
         <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>

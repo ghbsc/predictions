@@ -5,13 +5,9 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-
-    <context:property-placeholder location="classpath:META-INF/persistence-postgresql.properties" />
-
-    <import resource="classpath:META-INF/predict-infra.xml" />
     
-    <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
-        <property name="mappingFiles"
-            value="classpath*:/META-INF/dozer/**/*-mapping.xml" />
-    </bean>         
+    <context:component-scan base-package="com.hirondelle.predictapp.domain" />
+    <tx:annotation-driven />
+
+    <import resource="classpath:META-INF/persistence.xml" />  
 </beans>
