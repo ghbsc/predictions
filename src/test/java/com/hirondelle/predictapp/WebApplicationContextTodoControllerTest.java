@@ -3,6 +3,7 @@ package com.hirondelle.predictapp;
 import java.util.Arrays;
 import java.util.Date;
 
+import org.hamcrest.beans.HasProperty;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +19,16 @@ import org.springframework.web.context.WebApplicationContext;
 import com.hirondelle.predictapp.domain.model.PredictionList;
 import com.hirondelle.predictapp.domain.service.IPredictionListService;
 
-import static org.mockito.Mockito.when;
+//import static org.hamcrest.Matchers.allOf;
+//import static org.hamcrest.Matchers.hasItem;
+//import static org.hamcrest.Matchers.hasProperty;
+//import static org.hamcrest.Matchers.hasSize;
+//import static org.hamcrest.Matchers.is;
+//import static org.hamcrest.Matchers.isEmptyOrNullString;
+//import static org.hamcrest.Matchers.nullValue;
+//import static org.mockito.Matchers.*;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
@@ -66,19 +76,33 @@ public class WebApplicationContextTodoControllerTest {
     	PredictionList first = new PredictionList();
     	first.setId(1);
     	first.setTitle("first");
-    	first.setCreationDate(new Date());
     	
     	PredictionList second = new PredictionList();
     	second.setId(2);
     	second.setTitle("second");
-    	second.setCreationDate(new Date());
     	
-    	when(predictionListServiceMock.findByUserID(0)).thenReturn(Arrays.asList(first, second));
+    	when(predictionListServiceMock.findByUserID(org.mockito.Matchers.any(Integer.class))).thenReturn(Arrays.asList(first, second));
     	
     	mockMvc.perform(get("/predictionlist/list"))
     		.andExpect(status().isOk())
-    		.andExpect(view().name("lists/list"));
-    		//.andExpect(forwardedUrl(expectedUrl));
+    		.andExpect(view().name("lists/list"))
+    		.andExpect(forwardedUrl("/WEB-INF/views/lists/list.jsp"))
+    		.andExpect(model().attribute("predictionLists", hasSize(2)))
+    		.andExpect(model().attribute("predictionLists", hasItem(
+    				allOf(
+    						hasProperty("id", is(1)),
+    						hasProperty("title", is("first"))   						
+						)
+			)))
+			    		.andExpect(model().attribute("predictionLists", hasItem(
+    				allOf(
+    						hasProperty("id", is(2)),
+    						hasProperty("title", is("second"))   						
+						)
+			)));
+    	
+    	verify(predictionListServiceMock, times(1)).findByUserID(org.mockito.Matchers.any(Integer.class));
+    	verifyNoMoreInteractions(predictionListServiceMock);
     }
     
 }
