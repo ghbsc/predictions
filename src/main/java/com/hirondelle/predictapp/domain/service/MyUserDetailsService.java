@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hirondelle.predictapp.domain.model.CustomUser;
 import com.hirondelle.predictapp.domain.model.User;
 import com.hirondelle.predictapp.domain.model.UserRole;
 import com.hirondelle.predictapp.domain.repository.IUserRepository;
@@ -51,10 +52,10 @@ public class MyUserDetailsService implements UserDetailsService  {
 
 	// Converts com.mkyong.users.model.User user to
 	// org.springframework.security.core.userdetails.User
-	private org.springframework.security.core.userdetails.User buildUserForAuthentication(User user, 
+	private CustomUser buildUserForAuthentication(User user, 
 		List<GrantedAuthority> authorities) {
-		return new org.springframework.security.core.userdetails.User(user.getLoginName(), user.getPassword(), 
-			true, true, true, true, authorities);
+		return new CustomUser(user.getLoginName(), user.getPassword(), 
+			true, true, true, true, authorities, user.getId());
 	}	
 	
 	private List<GrantedAuthority> buildUserAuthority(Set<UserRole> userRoles) {

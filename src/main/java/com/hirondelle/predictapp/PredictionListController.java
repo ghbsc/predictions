@@ -17,20 +17,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hirondelle.predictapp.domain.model.PredictionList;
 import com.hirondelle.predictapp.domain.model.User;
+import com.hirondelle.predictapp.domain.service.IAuthenticationFacade;
 import com.hirondelle.predictapp.domain.service.IPredictionListService;
 
 @Controller
 @RequestMapping("predictionlist")
 public class PredictionListController {
 	protected IPredictionListService predictionListService;
-	
 	protected Mapper beanMapper;
+	protected IAuthenticationFacade authenticationFacade;
 	
 	@Inject	
 	public PredictionListController(IPredictionListService predictionListService, 
-									Mapper beanMapper) {
+									Mapper beanMapper, IAuthenticationFacade authenticationFacade) {
 		this.predictionListService = predictionListService;
 		this.beanMapper = beanMapper;
+		this.authenticationFacade = authenticationFacade;
 	}
 	
 	@ModelAttribute("predictionListForm")
@@ -93,7 +95,6 @@ public class PredictionListController {
     		predictionList = new PredictionList();
     		
     		User user = new User();
-    		user.setId(1);
     		predictionList.setUser(user);
     	}
     	else {
@@ -104,7 +105,11 @@ public class PredictionListController {
     }    
     
     private void populatePredictionLists(Model model) {
-		List<PredictionList> predictionLists = predictionListService.findByUserID(1);
+		List<PredictionList> predictionLists = predictionListService.findByUserID(getUserID());
 		model.addAttribute("predictionLists", predictionLists);    	
+    }
+    
+    private Integer getUserID() {
+    	return authenticationFacade.getPrincipal().getUserID();    	
     }
 }
