@@ -4,8 +4,9 @@ import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.User;
 
-public class CustomUser extends org.springframework.security.core.userdetails.User implements UserDetails {
+public class CustomUser extends User implements UserDetails {
 
 	/**
 	 * 

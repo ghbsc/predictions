@@ -7,7 +7,10 @@
     <import resource="classpath:META-INF/spring-web.xml" />
 
     <bean id="predictionListService" name="predictionListService" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="com.hirondelle.predictapp.domain.service.IPredictionListService"/>
-        <constructor-arg value="org.dozer.Mapper"/>  		
+        <constructor-arg value="com.hirondelle.predictapp.domain.service.IPredictionListService"/>		
+    </bean>
+    
+    <bean id="authenticationFacade" name="authenticationFacade" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="com.hirondelle.predictapp.domain.service.IAuthenticationFacade"/>  		
     </bean>
 </beans>
