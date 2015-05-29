@@ -1,15 +1,26 @@
 package com.hirondelle.predictapp;
 
-import java.util.Arrays;
-import java.util.Date;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import org.hamcrest.beans.HasProperty;
+import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -22,29 +33,6 @@ import com.hirondelle.predictapp.domain.model.CustomUser;
 import com.hirondelle.predictapp.domain.model.PredictionList;
 import com.hirondelle.predictapp.domain.service.IAuthenticationFacade;
 import com.hirondelle.predictapp.domain.service.IPredictionListService;
-
-
-
-
-
-//import static org.hamcrest.Matchers.allOf;
-//import static org.hamcrest.Matchers.hasItem;
-//import static org.hamcrest.Matchers.hasProperty;
-//import static org.hamcrest.Matchers.hasSize;
-//import static org.hamcrest.Matchers.is;
-//import static org.hamcrest.Matchers.isEmptyOrNullString;
-//import static org.hamcrest.Matchers.nullValue;
-//import static org.mockito.Matchers.*;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
@@ -59,8 +47,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
   }
 )
 @WebAppConfiguration
-public class WebApplicationContextTodoControllerTest {
-	
+public class PredictionListControllerTest {
+
     private MockMvc mockMvc;
     
     @Autowired
@@ -121,6 +109,5 @@ public class WebApplicationContextTodoControllerTest {
     	
     	verify(predictionListServiceMock, times(1)).findByUserID(org.mockito.Matchers.any(Integer.class));
     	verifyNoMoreInteractions(predictionListServiceMock);
-    }
-    
+    }	
 }
